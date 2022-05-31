@@ -1,0 +1,95 @@
+function doGet(e) {
+
+    if((Object.keys(e.parameter).length == 0))
+{
+     var sheet = SpreadsheetApp.openById("1FO4XIAByfWg9wPaJbuCNBJVNF3NA6YjQ_Pf4QFpUUqU");
+  var values = sheet.getActiveSheet().getDataRange().getDisplayValues();
+
+  var data =[];
+  var appointmentData = {};
+
+  for (var i = 1; i < values.length; i++) {
+    if (i == (values.length - 1)) {
+      var row = values[values.length - 1];
+
+      Logger.log(values.length - 1);
+      appointmentData['temperature'] = row[0];
+      appointmentData['humidity'] = row[1];
+      appointmentData['moisture'] = row[2];
+      appointmentData['rain'] = row[3];
+      appointmentData['light-intencity'] = row[4];
+      appointmentData['date'] = row[5];
+      appointmentData['time'] = row[6];
+    
+    data.push(appointmentData);
+    
+     
+    }
+  }
+  
+  var sendData={};
+  sendData['AgroMeTa_Data']=data;
+  Logger.log(data);
+  return ContentService.createTextOutput(JSON.stringify(sendData))
+    .setMimeType(ContentService.MimeType.JSON);
+
+  }
+  else{
+    script2(e);
+  }
+  
+}
+
+
+
+function script2(e) {
+
+  var mo = e.parameter;
+  if (mo == 'undefined') {
+    var result = {
+      status: true
+    }
+  }
+  else {
+    var sheet = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1FO4XIAByfWg9wPaJbuCNBJVNF3NA6YjQ_Pf4QFpUUqU/edit#gid=0');
+
+    var CurrentDate = new Date();
+    var date = Utilities.formatDate(CurrentDate, "IST", "dd/MM/YYYY");
+    var time = Utilities.formatDate(CurrentDate, "IST", "HH:mm:ss");
+
+    var rowData = [];
+
+    for (var param in e.parameter) {
+      var value = stripQuotes(e.parameter[param]);
+      switch (param) {
+         case 'temperature': //Parameter
+          rowData[0] = value; //Value in column C
+          break;
+        case 'humidity': //Parameter
+          rowData[1] = value; //Value in column D
+          break;
+
+          case 'moisture': //Parameter
+          rowData[2] = value; //Value in column C
+          break;
+        case 'rain': //Parameter
+          rowData[3] = value; //Value in column D
+          break;
+
+          case 'light-intencity': //Parameter
+          rowData[4] = value; //Value in column C
+          break; 
+        default:
+      }
+    }
+     rowData[5]=date;
+     rowData[6]=time;
+    sheet.appendRow([rowData[0], rowData[1],rowData[2],rowData[3],rowData[4],date,time]);
+  }
+
+}
+
+
+function stripQuotes(value) {
+  return value.replace(/^["']|['"]$/g, "");
+}
