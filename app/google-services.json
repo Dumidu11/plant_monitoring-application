@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "302313274994",
+    "project_id": "agrometa-bedd4",
+    "storage_bucket": "agrometa-bedd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302313274994:android:8b129cab264c52ad870ceb",
+        "android_client_info": {
+          "package_name": "com.example.plant_monitoring_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302313274994-92algm0t3mk88fomr35eqc391gghg9qp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWjYp4t_TF2g90nQcluh-Sn3KtpTvUROM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302313274994-92algm0t3mk88fomr35eqc391gghg9qp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
